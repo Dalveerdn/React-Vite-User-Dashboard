@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.outer-box {
+  @apply w-[100px] h-[100px] bg-[#355e3b] text-[white] text-center leading-[100px] font-[bold] text-[80px] rounded-[20px] font-[Arial,_sans-serif];
+  @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold;
+}

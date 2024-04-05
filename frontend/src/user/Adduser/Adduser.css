@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.add-user-btn {
+  @apply absolute -translate-x-1/2 bg-[#355e3b] text-[white] rounded-[4px] cursor-pointer px-4 py-2 border-[none] left-[45.5%] bottom-[30px];
+}
+
+.modal {
+  @apply hidden w-[430px] h-[349px] bg-white shadow-[0px_0px_10px_0px_rgba(0,0,0,0.5)] bg-[#355e3b] text-[white] z-[1000] fixed -translate-x-1/2 -translate-y-1/2 p-5 rounded-lg left-2/4 top-2/4;
+}
+
+.form-group {
+  @apply w-full mb-[15px] px-5 py-0 left-2/4 top-2/4;
+}
+
+.modal-content {
+  @apply w-full;
+}
+
+.input-field {
+  @apply w-full box-border;
+}
+label {
+  @apply block text-[13px] mb-[5px];
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  @apply bg-transparent text-[white] w-full relative p-px border-b-2 border-b-[white] border-[none] border-solid;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus {
+  @apply w-full border-b-2 border-b-[white] border-solid outline-[none];
+}
+
+#submitButton {
+  @apply bg-[white] text-[#355e3b] cursor-pointer absolute px-5 py-[5px] rounded-[5px] border-[none] left-[40%] bottom-[15px];
+}
+
+.userDetailFormhead {
+  @apply text-center m-0 text-[27px] left-2/4 p-[10px] font-[Arial,_sans-serif] translate-x-[0%] -translate-y-[40%];
+}
+.close-icon {
+  @apply absolute cursor-pointer text-[white] text-3xl right-2.5 top-2.5;
+}

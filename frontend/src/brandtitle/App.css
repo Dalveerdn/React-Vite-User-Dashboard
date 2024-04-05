@@ -1,0 +1,25 @@
+/* tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.title-brand {
+  @apply fixed top-20 left-1/2 transform -translate-x-1/2 text-black font-bold text-center text-base z-50 font-[Arial,_sans-serif] ;
+  @apply animate-[fadeIn_1.5s_ease_forwards] text-[#355e3b];
+}
+
+.text-base{
+  font-size: 3.5rem;
+}
+
+@keyframes fadeIn {
+  from {
+    @apply opacity-0;
+  }
+  to {
+    @apply opacity-100;
+  }
+}
+
+
+
