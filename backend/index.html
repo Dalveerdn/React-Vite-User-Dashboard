@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heroteck Private Limited</title>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .modal {
+      display: none;
+      position: relative;
+      width: 400px;
+      height: 300px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      background-color: #355e3b;
+      color: white;
+      /* Fixed position */
+      z-index: 1000;
+    }
+    .close-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: white;
+      font-size: 30px;
+    }
+    .add-user-btn,
+    .fetch-user {
+      margin-bottom: 10px; /* Added margin-bottom */
+      padding: 8px 16px;
+      background-color: #355e3b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      margin-top: 38%;
+    }
+    .add-user-btn {
+      margin-right: 10px;
+    }
+    #userDetails {
+      margin-top: 60px;
+      width: 700px; /* Set width to 700px */
+      height: 300px; /* Set height to 500px */
+      max-height: 300px; /* Set the maximum height for scroll */
+      overflow-y: auto; /* Enable vertical scrollbar if needed */
+      background-color: #355e3b; /* Dark matte green background color */
+      color: white; /* White text color */
+      padding: 10px; /* Add padding for better appearance */
+      display: none;
+      position: fixed; /* Fixed position */
+      z-index: 999;
+    }
+
+    /* Customize table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: white; /* White text color */
+    }
+
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      padding: 8px;
+      text-align: left;
+      background-color: #355e3b;
+      font-weight: bold; /* Bold table heading */
+    }
+
+    .title-brand {
+      position: fixed;
+      color: #355e3b; /* White */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      font-size: 56px; /* Adjust font size as needed */
+      font-weight: bold; /* Make text bold */
+      position: fixed; /* Position the title fixed */
+      top: 20px; /* Position from the top */
+      left: 50%; /* Position from the center horizontally */
+      transform: translateX(-50%); /* Center horizontally */
+      animation: fadeIn 1.5s ease forwards; /* Apply animation */
+      opacity: 0; /* Start with opacity 0 */
+      z-index: 999; /* Ensure it's above other content */
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0; /* Start with opacity 0 */
+      }
+      to {
+        opacity: 1; /* End with opacity 1 */
+      }
+    }
+    .outer-box {
+      position: fixed;
+      width: 100px; /* Change the width of outer box as needed */
+      height: 100px; /* Change the height of outer box as needed */
+      background-color: #355e3b;
+      color: white;
+      text-align: center;
+      line-height: 100px; /* Keep it equal to outer-box height */
+      font-weight: bold;
+      font-size: 80px; /* Change the font size as needed */
+      border-radius: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      border: none;
+      border-bottom: 2px solid white;
+      background-color: transparent;
+      color: white;
+      padding: 5px;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus {
+      outline: none;
+      border-bottom: 2px solid white; /* You can modify this to change the focus style */
+    }
+    #submitButton {
+      background-color: white;
+      color: #355e3b;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      position: absolute; /* Set button position to absolute */
+      bottom: 20px; /* Adjust the bottom position as needed */
+      left: 40%;
+    }
+    .userDetailFormhead {
+      text-align: center; /* Align text horizontally center */
+      margin-top: 0;
+    }
+  </style>
+  <body>
+    <h1 class="title-brand">Heroteck Private Limited</h1>
+
+    <div class="outer-box">B</div>
+
+    <div id="myModal" class="modal">
+      <h1 class="userDetailFormhead">ADD User Details</h1>
+      <form id="detailsForm">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+
+        <button type="button" class="submitButton" id="submitButton">
+          Submit
+        </button>
+      </form>
+
+      <span class="close-icon">&times;</span>
+    </div>
+    <button class="add-user-btn" onclick="openForm()">Add user</button>
+    <button class="fetch-user" type="button" id="fetchButton">
+      Fetch User
+    </button>
+
+    <div id="userDetails"></div>
+    <!-- Container to display user details -->
+
+    <script>
+      function openForm() {
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var userDetailContainer = document.getElementById("userDetails");
+        // Get the close icon
+        var closeIcon = modal.querySelector(".close-icon");
+
+        // Function to hide the modal when close icon is clicked
+        closeIcon.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+
+        // Function to show the modal
+        function showModal() {
+          modal.style.display = "block";
+          modal.style.position = "fixed";
+          userDetailContainer.style.display = "none";
+        }
+
+        // Initially hide the modal
+        showModal();
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const submitButton = document.getElementById("submitButton");
+        const fetchButton = document.getElementById("fetchButton"); // New button added
+        const userDetailsContainer = document.getElementById("userDetails"); // Container to display user details
+
+        submitButton.addEventListener("click", function () {
+          const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+          };
+
+          fetch("/submit-details", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Response from server:", data);
+              alert("Details submitted successfully!");
+              // You can add further actions here after successful submission if needed
+            })
+            .catch((error) => {
+              console.error(
+                "There was a problem with your fetch operation:",
+                error,
+              );
+              alert("Failed to submit details. Please try again later.");
+            });
+        });
+
+        fetchButton.addEventListener("click", function () {
+          fetch("/get-details", {
+            method: "GET",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data);
+              // Display user details in a table
+              let tableHTML = "<table>";
+              tableHTML += "<tr><th>Name</th><th>Email</th><th>Phone</th></tr>";
+              data.forEach((user) => {
+                tableHTML += `<tr><td>${user.name}</td><td>${user.email}</td><td>${user.phone}</td></tr>`;
+              });
+              tableHTML += "</table>";
+              userDetailsContainer.innerHTML = tableHTML;
+              userDetailsContainer.style.display = "block";
+              userDetailsContainer.style.position = "fixed";
+            })
+            .catch((error) => {
+              console.error(
+                "There was a problem with your fetch operation:",
+                error,
+              );
+              alert("Failed to fetch user details. Please try again later.");
+            });
+        });
+      });
+
+      var protocol = window.location.protocol;
+
+      // Check if the protocol is HTTPS or HTTP
+      if (protocol === "https:") {
+        console.log("This webpage is served over HTTPS.");
+      } else if (protocol === "http:") {
+        console.log("This webpage is served over HTTP.");
+      } else {
+        console.log("Unknown protocol.");
+      }
+    </script>
+  </body>
+</html>
